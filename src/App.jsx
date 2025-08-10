@@ -74,7 +74,7 @@ export default function App() {
 
       <label>Отчёт о решении</label>
       <textarea
-        placeholder="Опишите, что было сделано..."
+        placeholder="Опишите, что было сделано.."
         value={report()}
         onInput={(e) => setReport(e.target.value)}
       />
