@@ -8,25 +8,42 @@ export default function App() {
 
   // Получаем объект Telegram WebApp
   const tg = window.Telegram?.WebApp;
+  const urlParams = new URLSearchParams(window.location.search);
+  const ticketId = urlParams.get("ticket_id");
 
   const handleSubmit = () => {
-    const data = {
-      arrival: arrival(),
-      departure: departure(),
-      report: report(),
-    };
+  if (!arrival() || !departure() || !report()) {
+    alert("Заполните все поля!");
+    return;
+  }
 
-    // Передаём данные обратно в бота
-    if (tg) {
-      tg.sendData(JSON.stringify(data));
-    } else {
-      alert("Данные: " + JSON.stringify(data));
-    }
+  if (new Date(arrival()) > new Date(departure())) {
+    alert("Дата прибытия не может быть позже даты убытия!");
+    return;
+  }
+
+  const data = {
+    arrival: arrival(),
+    departure: departure(),
+    report: report(),
   };
+
+  if (tg?.initDataUnsafe?.query_id) {
+    // inline-режим (answerWebAppQuery)
+    fetch(`/webapp/answer?query_id=${tg.initDataUnsafe.query_id}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+  } else {
+    // обычный режим
+    tg.sendData(JSON.stringify(data));
+  }
+};
 
     return (
     <div class={styles["form-container"]}>
-      <h1 class={styles["title"]}>Акт выполненных работ</h1>
+      <h1 class={styles["title"]}>Акт выполненных работ #{ticketId}</h1>
 
       <label>Дата и время прибытия</label>
       <input
