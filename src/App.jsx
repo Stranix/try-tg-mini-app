@@ -30,12 +30,10 @@ export default function App() {
       report: report(),
     };
 
-    fetch(`${import.meta.env.VITE_API_HOST}/webapp/answer/`, {
+    fetch(`http://95.164.18.122/webapp/answer/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-client-type": "contactor",
-        "Authorization": `Bearer ${import.meta.env.VITE_API_TOKEN}`,
       },
       body: JSON.stringify(payload),
     })
