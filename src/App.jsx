@@ -22,22 +22,35 @@ export default function App() {
     return;
   }
 
-  const data = {
-    arrival: arrival(),
-    departure: departure(),
-    report: report(),
-  };
-
   if (tg?.initDataUnsafe?.query_id) {
-    // inline-режим (answerWebAppQuery)
-    fetch(`/webapp/answer?query_id=${tg.initDataUnsafe.query_id}`, {
+    const payload = {
+      query_id: tg.initDataUnsafe.query_id,
+      arrival: arrival(),
+      departure: departure(),
+      report: report(),
+    };
+
+    fetch(`${import.meta.env.VITE_API_HOST}/webapp/answer/`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-  } else {
-    // обычный режим
-    tg.sendData(JSON.stringify(data));
+      headers: {
+        "Content-Type": "application/json",
+        "x-client-type": "contactor",
+        "Authorization": `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Ошибка отправки данных");
+        return res.json();
+      })
+      .then(() => {
+        alert("Данные приняты. Ожидайте акт");
+        tg.close();
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Не удалось отправить данные. Попробуйте ещё раз.");
+      });
   }
 };
 
