@@ -37,6 +37,7 @@ export default function App() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "x-client-type": "contactor",
       },
       body: JSON.stringify(payload),
     })
