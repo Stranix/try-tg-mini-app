@@ -6,7 +6,9 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  base: '/try-tg-mini-app/',
   build: {
     target: 'esnext',
+    outDir: 'docs',
   },
 });

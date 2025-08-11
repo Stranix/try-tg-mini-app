@@ -31,6 +31,7 @@ export default function App() {
       departure: departure(),
       report: report(),
     };
+    console.log(payload)
 
     fetch(`https://tgdev.rnd-tech.ru/webapp/answer/`, {
       method: "POST",
