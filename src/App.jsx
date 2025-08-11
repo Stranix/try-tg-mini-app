@@ -42,12 +42,12 @@ export default function App() {
         return res.json();
       })
       .then(() => {
-        alert("Данные приняты. Ожидайте акт");
-        tg.close();
+        tg.showAlert("Данные приняты. Ожидайте акт");
+        tg?.close();
       })
       .catch((err) => {
         console.error(err);
-        alert("Не удалось отправить данные. Попробуйте ещё раз.");
+        tg.showAlert("Не удалось отправить данные. Попробуйте ещё раз.");
       });
   }
 };
