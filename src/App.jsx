@@ -25,6 +25,8 @@ export default function App() {
   if (tg?.initDataUnsafe?.query_id) {
     const payload = {
       query_id: tg.initDataUnsafe.query_id,
+      init_data: tg?.initData,
+      user: tg?.initDataUnsafe?.user,
       arrival: arrival(),
       departure: departure(),
       report: report(),
