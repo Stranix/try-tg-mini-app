@@ -30,7 +30,7 @@ export default function App() {
       report: report(),
     };
 
-    fetch(`http://95.164.18.122/webapp/answer/`, {
+    fetch(`https://tgdev.rnd-tech.ru/webapp/answer/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export default function App() {
       })
       .catch((err) => {
         console.error(err);
-        tg.showAlert("Не удалось отправить данные. Попробуйте ещё раз." + err.message || err);
+        tg.showAlert("Не удалось отправить данные. Попробуйте ещё раз. " + err.message || err);
       });
   }
 };
