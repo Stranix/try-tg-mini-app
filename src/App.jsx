@@ -47,7 +47,7 @@ export default function App() {
       })
       .catch((err) => {
         console.error(err);
-        tg.showAlert("Не удалось отправить данные. Попробуйте ещё раз.");
+        tg.showAlert("Не удалось отправить данные. Попробуйте ещё раз." + err.message || err);
       });
   }
 };
